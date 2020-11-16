@@ -21,10 +21,16 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="Add"
         component={TabOneNavigator}
-      />
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-add" color={color} />,
+        }}
+        />
       <BottomTab.Screen
         name="Revise"
         component={TabTwoNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-mail-unread" color={color} />,
+        }}
       />
     </BottomTab.Navigator>
   );
