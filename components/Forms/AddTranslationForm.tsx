@@ -1,16 +1,17 @@
 import React, { useRef } from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, Dimensions, Keyboard } from 'react-native';
 import Constants from 'expo-constants';
 import { Button } from 'react-native-paper';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import DismissKeyboard from '../../components/DismissKeyboard';
 
+import DismissKeyboard from '../../components/DismissKeyboard';
+import NotesContainer from '../../stores/NotesContainer';
 
 const Basic = () => {
-
   const translationInput = useRef(null);
+  const notesContainer = NotesContainer.useContainer();
 
   return (
     <Formik
@@ -23,7 +24,10 @@ const Basic = () => {
       })}
       onSubmit={(values, formikActions) => {
         setTimeout(() => {
-          Alert.alert(JSON.stringify(values));
+          notesContainer.addNote(values);
+          Keyboard.dismiss();
+          
+          // Alert.alert(JSON.stringify(values));
           // Important: Make sure to setSubmitting to false so our loading indicator
           // goes away.
           formikActions.setSubmitting(false);
