@@ -1,91 +1,93 @@
 import React, { useRef } from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, Dimensions, Keyboard } from 'react-native';
 import Constants from 'expo-constants';
 import { Button } from 'react-native-paper';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import DismissKeyboard from '../../components/DismissKeyboard';
 
+import DismissKeyboard from '../../components/DismissKeyboard';
+import NotesContainer from '../../stores/NotesContainer';
 
 const Basic = () => {
-
   const translationInput = useRef(null);
+  const notesContainer = NotesContainer.useContainer();
 
   return (
-    // <View style={styles.container}>
-        <Formik
-          initialValues={{ initial: '', translation: '' }}
-          validationSchema={Yup.object({
-            initial: Yup.string()
-              .required('Required'),
-            translation: Yup.string()
-              .required('Required'),
-          })}
-          onSubmit={(values, formikActions) => {
-            setTimeout(() => {
-              Alert.alert(JSON.stringify(values));
-              // Important: Make sure to setSubmitting to false so our loading indicator
-              // goes away.
-              formikActions.setSubmitting(false);
-            }, 500);
-          }}>
-          {props => (
-            <DismissKeyboard style={styles.container}>
-              <TextInput
-                onChangeText={props.handleChange('initial')}
-                onBlur={props.handleBlur('initial')}
-                value={props.values.initial}
-                // autoFocus
-                placeholder="Enter text"
-                multiline={true}
-                numberOfLines={4}
-                style={styles.input}
-                onSubmitEditing={() => {
-                  // on certain forms, it is nice to move the user's focus
-                  // to the next input when they press enter.
-                  if(translationInput && translationInput.current) {
-                    translationInput.current.focus();
-                  }
-                }}
-              />
-              {props.touched.initial && props.errors.initial ? (
-                <Text style={styles.error}>{props.errors.initial}</Text>
-              ) : null}
-              <TextInput
-                onChangeText={props.handleChange('translation')}
-                onBlur={props.handleBlur('translation')}
-                value={props.values.translation}
-                placeholder="Translation"
-                multiline={true}
-                numberOfLines={4}
-                style={[styles.input, {marginTop:12}]}
-                ref={translationInput}
-              />
-              {props.touched.translation && props.errors.translation ? (
-                <Text style={styles.error}>{props.errors.translation}</Text>
-              ) : null}
-              <Button
-                onPress={props.handleSubmit}
-                color="black"
-                mode="contained"
-                loading={props.isSubmitting}
-                disabled={props.isSubmitting}
-                style={{ marginTop: 16 }}>
-                Add
-                </Button>
-              <Button
-                onPress={props.handleReset}
-                color="black"
-                mode="outlined"
-                disabled={props.isSubmitting}
-                style={{ marginTop: 16 }}>
-                Reset
-                </Button>
-            </DismissKeyboard>
-          )}
-        </Formik>
-    // </View>
+    <Formik
+      initialValues={{ initial: '', translation: '' }}
+      validationSchema={Yup.object({
+        initial: Yup.string()
+          .required('Required'),
+        translation: Yup.string()
+          .required('Required'),
+      })}
+      onSubmit={(values, formikActions) => {
+        setTimeout(() => {
+          notesContainer.addNote(values);
+          Keyboard.dismiss();
+          
+          // Alert.alert(JSON.stringify(values));
+          // Important: Make sure to setSubmitting to false so our loading indicator
+          // goes away.
+          formikActions.setSubmitting(false);
+        }, 500);
+      }}>
+      {props => (
+        <DismissKeyboard style={styles.container}>
+          <TextInput
+            onChangeText={props.handleChange('initial')}
+            onBlur={props.handleBlur('initial')}
+            value={props.values.initial}
+            // autoFocus
+            placeholder="Enter text"
+            multiline={true}
+            numberOfLines={4}
+            style={styles.input}
+            onSubmitEditing={() => {
+              // on certain forms, it is nice to move the user's focus
+              // to the next input when they press enter.
+              if(translationInput && translationInput.current) {
+                translationInput.current.focus();
+              }
+            }}
+          />
+          {props.touched.initial && props.errors.initial ? (
+            <Text style={styles.error}>{props.errors.initial}</Text>
+          ) : null}
+          <TextInput
+            onChangeText={props.handleChange('translation')}
+            onBlur={props.handleBlur('translation')}
+            value={props.values.translation}
+            placeholder="Translation"
+            multiline={true}
+            numberOfLines={4}
+            style={[styles.input, {marginTop:12}]}
+            ref={translationInput}
+          />
+          {props.touched.translation && props.errors.translation ? (
+            <Text style={styles.error}>{props.errors.translation}</Text>
+          ) : null}
+          <Button
+            onPress={props.handleSubmit}
+            color="black"
+            mode="contained"
+            loading={props.isSubmitting}
+            disabled={props.isSubmitting}
+            style={{ marginTop: 16 }}>
+            Add
+            </Button>
+          <Button
+            onPress={props.handleReset}
+            color="black"
+            mode="outlined"
+            disabled={props.isSubmitting}
+            style={{ marginTop: 16 }}>
+            Reset
+            </Button>
+        </DismissKeyboard>
+      )}
+    </Formik>
   );
 }
 
