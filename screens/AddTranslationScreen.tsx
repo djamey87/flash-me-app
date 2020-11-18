@@ -13,7 +13,7 @@ export default function TabOneScreen() {
         <AddTranslationForm />
         {notes.notes.map((note: Note, index: number) => (
           <View key={'note-'+index}>
-            <Text>{note.translation}</Text>
+            <Text>{note.initial} : {note.translation}</Text>
           </View>
         ))}
       </View>
