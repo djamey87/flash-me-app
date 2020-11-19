@@ -25,7 +25,6 @@ const Basic = () => {
       })}
       onSubmit={(values, formikActions) => {
         setTimeout(() => {
-          console.log('onSubmit', values);
           notesContainer.addNote(values);
           Keyboard.dismiss();
           

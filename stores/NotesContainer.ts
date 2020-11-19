@@ -12,7 +12,6 @@ const useNotes = () =>{
     const [notes, setNotes] = useState([{}] as Note[]);
 
     useEffect(() => {
-        // console.log('NotesContainer', storageValue);
         setNotes(storageValue.notes as Note[] || []);
     }, [storageValue]);
 
