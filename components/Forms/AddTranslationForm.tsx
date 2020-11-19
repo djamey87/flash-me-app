@@ -12,10 +12,11 @@ import NotesContainer from '../../stores/NotesContainer';
 const Basic = () => {
   const translationInput = useRef(null);
   const notesContainer = NotesContainer.useContainer();
+  const defaultFormValues = {initial: '', translation:''};
 
   return (
     <Formik
-      initialValues={{ initial: '', translation: '' }}
+      initialValues={defaultFormValues}
       validationSchema={Yup.object({
         initial: Yup.string()
           .required('Required'),
@@ -24,13 +25,14 @@ const Basic = () => {
       })}
       onSubmit={(values, formikActions) => {
         setTimeout(() => {
+          console.log('onSubmit', values);
           notesContainer.addNote(values);
           Keyboard.dismiss();
           
-          // Alert.alert(JSON.stringify(values));
-          // Important: Make sure to setSubmitting to false so our loading indicator
-          // goes away.
-          formikActions.setSubmitting(false);
+          setTimeout(() => {
+            formikActions.setSubmitting(false);
+            formikActions.resetForm({values:defaultFormValues});
+          }, 20);
         }, 500);
       }}>
       {props => (
