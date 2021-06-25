@@ -1,33 +1,40 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import AddTranslationForm from '../components/Forms/AddTranslationForm';
-import { View } from '../components/Themed';
-import NotesContainer, {Note} from '../stores/NotesContainer';
+import { Text, View } from '../components/Themed';
+import NotesContainer, { Note } from '../stores/NotesContainer';
 
 export default function TabOneScreen() {
-  const notes = NotesContainer.useContainer();
+  const { notes } = NotesContainer.useContainer();
 
   return (
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.listView}>
         <AddTranslationForm />
       </View>
+
+      <Text>Saved notes:</Text>
+      <ScrollView contentContainerStyle={styles.listView}>
+        {notes.map((note: Note, index: number) => (
+          <Text key={`note-${index}`}>{note.initial}</Text>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  listView: {
+    flex: 1
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  }
 });
