@@ -1,17 +1,15 @@
 import React, { useRef } from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, Dimensions, Keyboard } from 'react-native';
-import Constants from 'expo-constants';
+import { Text, View, TextInput, Keyboard } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-
 import DismissKeyboard from '../../components/DismissKeyboard';
 import NotesContainer from '../../stores/NotesContainer';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { styles } from './styles';
 
 const Basic: React.FC = () => {
-  const translationInput = useRef(null);
+  const translationInput = useRef<TextInput>(null);
   const notesContainer = NotesContainer.useContainer();
   const defaultFormValues = { initial: '', translation: '' };
 
@@ -82,7 +80,6 @@ const Basic: React.FC = () => {
                 Add
               </Button>
 
-
               <Button
                 onPress={props.handleReset}
                 color="black"
@@ -98,29 +95,5 @@ const Basic: React.FC = () => {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-    width: Dimensions.get('screen').width
-  },
-  error: {
-    margin: 8,
-    fontSize: 14,
-    color: 'red',
-    fontWeight: 'bold',
-  },
-  input: {
-    height: 50,
-    paddingHorizontal: 8,
-    width: '100%',
-    borderColor: '#ddd',
-    borderWidth: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 export default Basic;
