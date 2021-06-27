@@ -20,7 +20,7 @@ export default function TabOneScreen() {
         <Text style={styles.title}>Saved notes</Text>
         <ScrollView contentContainerStyle={{ padding: 10 }}>
           {notes.map((note: Note, index: number) => (
-            <ListedNote key={`note-${index}`} frontContent={note.initial} backContent={note.translation} />
+            <ListedNote key={`note-${note.id}`} id={note.id} frontContent={note.frontContent} backContent={note.backContent} />
           ))}
         </ScrollView>
       </View>
