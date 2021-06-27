@@ -5,25 +5,26 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import DismissKeyboard from '../../components/DismissKeyboard';
-import NotesContainer from '../../stores/NotesContainer';
+import NotesContainer, { Note } from '../../stores/NotesContainer';
 import { styles } from './styles';
 
 const Basic: React.FC = () => {
-  const translationInput = useRef<TextInput>(null);
+  const backContentInput = useRef<TextInput>(null);
   const notesContainer = NotesContainer.useContainer();
-  const defaultFormValues = { initial: '', translation: '' };
+  const defaultFormValues = { frontContent: '', backContent: '' };
 
   return (
     <View style={styles.container}>
       <Formik
         initialValues={defaultFormValues}
         validationSchema={Yup.object({
-          initial: Yup.string()
+          frontContent: Yup.string()
             .required('Required'),
-          translation: Yup.string()
+          backContent: Yup.string()
             .required('Required'),
         })}
         onSubmit={(values, formikActions) => {
+          console.log('getting here?');
           setTimeout(() => {
             notesContainer.addNote(values);
             Keyboard.dismiss();
@@ -37,37 +38,37 @@ const Basic: React.FC = () => {
         {props => (
           <DismissKeyboard style={styles.container}>
             <TextInput
-              onChangeText={props.handleChange('initial')}
-              onBlur={props.handleBlur('initial')}
-              value={props.values.initial}
+              onChangeText={props.handleChange('frontContent')}
+              onBlur={props.handleBlur('frontContent')}
+              value={props.values.frontContent}
               // autoFocus
-              placeholder="Enter text"
+              placeholder="Front of card"
               multiline={true}
               numberOfLines={4}
               style={styles.input}
               onSubmitEditing={() => {
                 // on certain forms, it is nice to move the user's focus
                 // to the next input when they press enter.
-                if (translationInput && translationInput.current) {
-                  translationInput.current?.focus();
+                if (backContentInput && backContentInput.current) {
+                  backContentInput.current?.focus();
                 }
               }}
             />
-            {props.touched.initial && props.errors.initial ? (
-              <Text style={styles.error}>{props.errors.initial}</Text>
+            {props.touched.frontContent && props.errors.frontContent ? (
+              <Text style={styles.error}>{props.errors.frontContent}</Text>
             ) : null}
             <TextInput
-              onChangeText={props.handleChange('translation')}
-              onBlur={props.handleBlur('translation')}
-              value={props.values.translation}
-              placeholder="Translation"
+              onChangeText={props.handleChange('backContent')}
+              onBlur={props.handleBlur('backContent')}
+              value={props.values.backContent}
+              placeholder="Back of card"
               multiline={true}
               numberOfLines={4}
               style={[styles.input, { marginTop: 12 }]}
-              ref={translationInput}
+              ref={backContentInput}
             />
-            {props.touched.translation && props.errors.translation ? (
-              <Text style={styles.error}>{props.errors.translation}</Text>
+            {props.touched.backContent && props.errors.backContent ? (
+              <Text style={styles.error}>{props.errors.backContent}</Text>
             ) : null}
             <View style={{ flex: 2, flexDirection: 'column' }}>
               <Button
