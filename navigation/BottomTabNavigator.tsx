@@ -24,7 +24,7 @@ export default function BottomTabNavigator() {
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-add" color={color} />,
         }}
-        />
+      />
       <BottomTab.Screen
         name="Revise"
         component={TabTwoNavigator}
@@ -52,7 +52,7 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Add Translation' }}
+        options={{ headerTitle: 'Add Card' }}
       />
     </TabOneStack.Navigator>
   );
