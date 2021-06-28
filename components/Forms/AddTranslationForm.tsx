@@ -24,7 +24,6 @@ const Basic: React.FC = () => {
             .required('Required'),
         })}
         onSubmit={(values, formikActions) => {
-          console.log('getting here?');
           setTimeout(() => {
             notesContainer.addNote(values);
             Keyboard.dismiss();
