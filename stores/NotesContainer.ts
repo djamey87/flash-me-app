@@ -10,7 +10,7 @@ export interface Note {
 }
 
 const useNotes = () => {
-    const [storageValue, updateStorage] = useStorage('@notes_storage', { notes: [] as Note[] });
+    const [storageValue, updateStorage, clearStore] = useStorage('@notes_storage', { notes: [] as Note[] });
     const [notes, setNotes] = useState([{}] as Note[]);
 
     useEffect(() => {
@@ -24,7 +24,13 @@ const useNotes = () => {
         setNotes(concatNotes);
         updateStorage({ notes: concatNotes as Note[] });
     }
-    return { notes, addNote }
+
+    const clearAll = () => {
+        clearStore();
+        setNotes([]);
+    }
+
+    return { notes, addNote, clearAll }
 }
 
 export default createContainer(useNotes)

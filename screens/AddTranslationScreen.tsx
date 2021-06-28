@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
 
 import AddTranslationForm from '../components/Forms/AddTranslationForm';
 import ListedNote from '../components/Note/ListedNote';
@@ -8,7 +9,8 @@ import { Text, View } from '../components/Themed';
 import NotesContainer, { Note } from '../stores/NotesContainer';
 
 export default function TabOneScreen() {
-  const { notes } = NotesContainer.useContainer();
+  const notesContainer = NotesContainer.useContainer();
+  const notes = notesContainer.notes;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -17,14 +19,22 @@ export default function TabOneScreen() {
       </View>
 
       <View style={styles.notesListWrapper}>
-        <Text style={styles.title}>Saved notes</Text>
+        <View>
+          <Text style={styles.title}>Saved notes</Text>
+        </View>
         <ScrollView contentContainerStyle={{ padding: 10 }}>
           {notes.map((note: Note, index: number) => (
             <ListedNote key={`note-${note.id}`} id={note.id} frontContent={note.frontContent} backContent={note.backContent} />
           ))}
+          {notes.length > 0 ? <Button
+            onPress={notesContainer.clearAll}
+            color="red"
+            mode="contained">
+            Clear all
+          </Button> : null}
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }
 
