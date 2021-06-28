@@ -3,10 +3,12 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 
-import AddTranslationForm from '../components/Forms/AddTranslationForm';
-import ListedNote from '../components/Note/ListedNote';
-import { Text, View } from '../components/Themed';
-import NotesContainer, { Note } from '../stores/NotesContainer';
+import AddTranslationForm from '../../components/Forms/AddTranslationForm';
+import ListedNote from '../../components/Note/ListedNote';
+import { Text, View } from '../../components/Themed';
+import NotesContainer, { Note } from '../../stores/NotesContainer';
+
+import styles from './styles';
 
 export default function TabOneScreen() {
   const notesContainer = NotesContainer.useContainer();
@@ -24,12 +26,13 @@ export default function TabOneScreen() {
         </View>
         <ScrollView contentContainerStyle={{ padding: 10 }}>
           {notes.map((note: Note, index: number) => (
-            <ListedNote key={`note-${note.id}`} id={note.id} frontContent={note.frontContent} backContent={note.backContent} />
+            <ListedNote key={`note-${note.id}`} frontContent={note.frontContent} backContent={note.backContent} />
           ))}
           {notes.length > 0 ? <Button
             onPress={notesContainer.clearAll}
             color="red"
-            mode="contained">
+            mode="contained"
+            style={styles.clearButton}>
             Clear all
           </Button> : null}
         </ScrollView>
@@ -37,23 +40,3 @@ export default function TabOneScreen() {
     </SafeAreaView >
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  listView: {
-    flex: 1
-  },
-  notesListWrapper: {
-    padding: 16,
-    flex: 1
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16
-  }
-});

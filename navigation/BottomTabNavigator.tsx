@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/AddTranslationScreen';
+import TabOneScreen from '../screens/AddTranslationsScreen';
 import TabTwoScreen from '../screens/RevisionScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
