@@ -14,6 +14,10 @@ export default function TabOneScreen() {
   const notesContainer = NotesContainer.useContainer();
   const notes = notesContainer.notes;
 
+  const handleEditPress = (noteId: string) => {
+    console.log('lets edit', noteId);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.listView}>
@@ -25,8 +29,8 @@ export default function TabOneScreen() {
           <Text style={styles.title}>Saved notes</Text>
         </View>
         <ScrollView contentContainerStyle={{ padding: 10 }}>
-          {notes.map((note: Note, index: number) => (
-            <ListedNote key={`note-${note.id}`} frontContent={note.frontContent} backContent={note.backContent} />
+          {notes.map((note: Note) => (
+            <ListedNote key={`note-${note.id}`} frontContent={note.frontContent} backContent={note.backContent} onEditPress={() => handleEditPress(note.id)} />
           ))}
           {notes.length > 0 ? <Button
             onPress={notesContainer.clearAll}

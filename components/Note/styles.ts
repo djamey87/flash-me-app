@@ -8,7 +8,9 @@ const container: ViewStyle = {
     paddingHorizontal: 16,
     paddingTop: 4,
     paddingBottom: 8,
-    marginBottom: 8
+    marginBottom: 8,
+    flex: 1,
+    flexDirection: 'row'
 };
 
 const frontContent: TextStyle = {

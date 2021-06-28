@@ -6,7 +6,7 @@ import useStorage from '../hooks/useStorage';
 export interface Note {
     frontContent: string,
     backContent: string,
-    id?: string
+    id: string
 }
 
 const useNotes = () => {
