@@ -9,6 +9,8 @@ export interface Note {
     id: string
 }
 
+export type CreateNote = Omit<Note, 'id'>;
+
 const useNotes = () => {
     const [storageValue, updateStorage, clearStore] = useStorage('@notes_storage', { notes: [] as Note[] });
     const [notes, setNotes] = useState([{}] as Note[]);
@@ -18,11 +20,15 @@ const useNotes = () => {
     }, [storageValue]);
 
     // TODO: validate incoming 
-    const addNote = (newNote: Note) => {
+    const addNote = (newNote: CreateNote) => {
         const createNote = { ...newNote, id: uuidv4() };
         const concatNotes = [...notes, createNote];
         setNotes(concatNotes);
         updateStorage({ notes: concatNotes as Note[] });
+    }
+
+    const getNoteById = (noteId: string) => {
+        return notes.filter(note => note.id === noteId)[0];
     }
 
     const clearAll = () => {
@@ -30,7 +36,7 @@ const useNotes = () => {
         setNotes([]);
     }
 
-    return { notes, addNote, clearAll }
+    return { notes, addNote, clearAll, getNoteById }
 }
 
 export default createContainer(useNotes)
