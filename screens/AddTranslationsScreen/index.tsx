@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
+import { FormMode } from '../../components/Forms/enums';
 
-import AddTranslationForm from '../../components/Forms/AddTranslationForm';
+import TranslationFormMode from '../../components/Forms/TranslationFormMode';
 import ListedNote from '../../components/Note/ListedNote';
 import { Text, View } from '../../components/Themed';
 import NotesContainer, { Note } from '../../stores/NotesContainer';
@@ -13,15 +15,16 @@ import styles from './styles';
 export default function TabOneScreen() {
   const notesContainer = NotesContainer.useContainer();
   const notes = notesContainer.notes;
+  const [editNoteId, setEditNoteId] = useState<string>();
 
   const handleEditPress = (noteId: string) => {
-    console.log('lets edit', noteId);
+    setEditNoteId(noteId);
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.listView}>
-        <AddTranslationForm />
+        <TranslationFormMode mode={editNoteId ? FormMode.Edit : FormMode.New} noteId={editNoteId} />
       </View>
 
       <View style={styles.notesListWrapper}>
