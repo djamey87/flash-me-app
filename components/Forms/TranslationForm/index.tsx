@@ -8,30 +8,35 @@ import DismissKeyboard from '../../DismissKeyboard';
 import NotesContainer from '../../../stores/NotesContainer';
 
 import { styles } from './styles';
+import { FormMode } from '../enums';
+import { FadeInFromBottomAndroidSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
 
 interface Props {
   backContent: string,
   frontContent: string,
-  onSubmit: (values: any) => void
+  onCancel: () => void,
+  onSubmit: (values: any) => void,
+  mode: FormMode;
 }
 
-const TranslationForm: React.FC<Props> = ({ backContent, frontContent }) => {
+const TranslationForm: React.FC<Props> = ({ backContent, frontContent, mode, onCancel, onSubmit }) => {
   const backContentInput = useRef<TextInput>(null);
-  const notesContainer = NotesContainer.useContainer();
-  const defaultFormValues = { frontContent: '', backContent: '' };
+  // const notesContainer = NotesContainer.useContainer();
+  const defaultFormValues = { frontContent, backContent };
 
   // TODO: type update
   const handleSubmit = (values, formikActions) => {
     setTimeout(() => {
-      notesContainer.addNote(values);
+      // notesContainer.addNote(values);
+      onSubmit(values);
       Keyboard.dismiss();
 
       setTimeout(() => {
         formikActions.setSubmitting(false);
-        formikActions.resetForm({ values: defaultFormValues });
+        formikActions.resetForm({ values: { frontContent: '', backContent: '' } });
       }, 20);
     }, 500);
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -43,7 +48,7 @@ const TranslationForm: React.FC<Props> = ({ backContent, frontContent }) => {
           backContent: Yup.string()
             .required('Required'),
         })}
-        onSubmit={(values, formikActions) => handleSubmit(values, formikActions)}>
+        onSubmit={(values, formikActions) => handleSubmit(values, formikActions)} onReset={onCancel}>
         {props => (
           <DismissKeyboard style={styles.container}>
             <TextInput
@@ -86,7 +91,7 @@ const TranslationForm: React.FC<Props> = ({ backContent, frontContent }) => {
                 loading={props.isSubmitting}
                 disabled={props.isSubmitting}
                 style={{ marginTop: 16 }}>
-                Add
+                {mode === FormMode.New ? 'Create' : 'Update'}
               </Button>
 
               <Button
@@ -95,7 +100,7 @@ const TranslationForm: React.FC<Props> = ({ backContent, frontContent }) => {
                 mode="outlined"
                 disabled={props.isSubmitting}
                 style={{ marginTop: 16 }}>
-                Reset
+                {mode === FormMode.New ? 'Reset' : 'Cancel'}
               </Button>
             </View>
           </DismissKeyboard>

@@ -21,10 +21,26 @@ export default function TabOneScreen() {
     setEditNoteId(noteId);
   }
 
+  const handleFormSubmit = (values: any) => {
+    console.log('handleFormSubmit', values);
+    if (!editNoteId) {
+      notesContainer.addNote(values);
+    } else {
+      // TODO: update!
+    }
+  }
+
+  const handleFormCancel = () => {
+    console.log('handleFormCancel', editNoteId);
+    if (editNoteId) {
+      setEditNoteId(undefined);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.listView}>
-        <TranslationFormMode mode={editNoteId ? FormMode.Edit : FormMode.New} noteId={editNoteId} />
+        <TranslationFormMode mode={editNoteId ? FormMode.Edit : FormMode.New} noteId={editNoteId} onSubmit={handleFormSubmit} onCancel={handleFormCancel} />
       </View>
 
       <View style={styles.notesListWrapper}>
