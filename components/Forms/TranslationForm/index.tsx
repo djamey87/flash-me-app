@@ -9,7 +9,8 @@ import NotesContainer from '../../../stores/NotesContainer';
 
 import { styles } from './styles';
 import { FormMode } from '../enums';
-import { FadeInFromBottomAndroidSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 interface Props {
   backContent: string,
@@ -21,13 +22,17 @@ interface Props {
 
 const TranslationForm: React.FC<Props> = ({ backContent, frontContent, mode, onCancel, onSubmit }) => {
   const backContentInput = useRef<TextInput>(null);
-  // const notesContainer = NotesContainer.useContainer();
-  const defaultFormValues = { frontContent, backContent };
+  const [defaultFormValues, setDefaultFormValues] = useState({});
+  // const defaultFormValues = { frontContent, backContent };
+
+  useEffect(() => {
+    console.log('TranslationForm', backContent, frontContent);
+    setDefaultFormValues({ backContent, frontContent });
+  }, [backContent, frontContent]);
 
   // TODO: type update
   const handleSubmit = (values, formikActions) => {
     setTimeout(() => {
-      // notesContainer.addNote(values);
       onSubmit(values);
       Keyboard.dismiss();
 
@@ -41,6 +46,7 @@ const TranslationForm: React.FC<Props> = ({ backContent, frontContent, mode, onC
   return (
     <View style={styles.container}>
       <Formik
+        enableReinitialize={true}
         initialValues={defaultFormValues}
         validationSchema={Yup.object({
           frontContent: Yup.string()

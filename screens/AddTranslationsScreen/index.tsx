@@ -27,6 +27,7 @@ export default function TabOneScreen() {
       notesContainer.addNote(values);
     } else {
       // TODO: update!
+      notesContainer.updateNote(editNoteId, values);
     }
   }
 

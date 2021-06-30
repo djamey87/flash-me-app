@@ -27,6 +27,16 @@ const useNotes = () => {
         updateStorage({ notes: concatNotes as Note[] });
     }
 
+    const updateNote = (noteId: string, update: CreateNote): void => {
+        const targetNote = notes.filter(note => note.id === noteId)[0];
+        if (!targetNote) return;
+
+        const amendedNote = { ...targetNote, ...update };
+        const concatNotes = [...notes.filter(note => note.id !== noteId), amendedNote];
+        setNotes(concatNotes);
+        updateStorage({ notes: concatNotes as Note[] });
+    }
+
     const getNoteById = (noteId: string) => {
         return notes.filter(note => note.id === noteId)[0];
     }
@@ -36,7 +46,7 @@ const useNotes = () => {
         setNotes([]);
     }
 
-    return { notes, addNote, clearAll, getNoteById }
+    return { notes, addNote, clearAll, getNoteById, updateNote }
 }
 
 export default createContainer(useNotes)
