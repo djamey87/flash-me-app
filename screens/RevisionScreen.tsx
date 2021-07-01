@@ -9,7 +9,7 @@ export default function TabTwoScreen() {
   const { notes } = NotesContainer.useContainer();
   // const [cardRefs, setCardRefs] = useState<CardFlip[]>([]);
   // TODO: resolve typing
-  const itemsRef = useRef([]);
+  const itemsRef = useRef<CardFlip[]>([]);
 
   useEffect(() => {
     itemsRef.current = itemsRef.current.slice(0, notes.length);
@@ -33,19 +33,19 @@ export default function TabTwoScreen() {
           return (
             <CardFlip
               style={styles.cardContainer}
-              key={'card-' + index}
+              key={'card-' + index + note.id}
               ref={el => itemsRef.current[index] = el}>
               <TouchableOpacity
                 activeOpacity={1}
                 style={[styles.card, styles.cardFront]}
                 onPress={onPressHandler}>
-                <Text style={styles.label}>{note.initial}</Text>
+                <Text style={styles.label}>{note.frontContent}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={1}
                 style={[styles.card, styles.cardBack]}
                 onPress={onPressHandler}>
-                <Text style={[styles.label, { color: '#000' }]}>{note.translation}</Text>
+                <Text style={[styles.label, { color: '#000' }]}>{note.backContent}</Text>
               </TouchableOpacity>
             </CardFlip>
           );

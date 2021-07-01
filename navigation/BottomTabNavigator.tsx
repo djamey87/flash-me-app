@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/AddTranslationScreen';
+import TabOneScreen from '../screens/AddTranslationsScreen';
 import TabTwoScreen from '../screens/RevisionScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
@@ -24,7 +24,7 @@ export default function BottomTabNavigator() {
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-add" color={color} />,
         }}
-        />
+      />
       <BottomTab.Screen
         name="Revise"
         component={TabTwoNavigator}
@@ -52,7 +52,7 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Add Translation' }}
+        options={{ headerTitle: 'Add Card' }}
       />
     </TabOneStack.Navigator>
   );
