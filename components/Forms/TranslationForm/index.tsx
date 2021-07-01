@@ -5,12 +5,9 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import DismissKeyboard from '../../DismissKeyboard';
-import NotesContainer from '../../../stores/NotesContainer';
 
 import { styles } from './styles';
 import { FormMode } from '../enums';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 interface Props {
   backContent: string,
@@ -22,13 +19,7 @@ interface Props {
 
 const TranslationForm: React.FC<Props> = ({ backContent, frontContent, mode, onCancel, onSubmit }) => {
   const backContentInput = useRef<TextInput>(null);
-  const [defaultFormValues, setDefaultFormValues] = useState({});
-  // const defaultFormValues = { frontContent, backContent };
-
-  useEffect(() => {
-    console.log('TranslationForm', backContent, frontContent);
-    setDefaultFormValues({ backContent, frontContent });
-  }, [backContent, frontContent]);
+  const defaultFormValues = { frontContent, backContent };
 
   // TODO: type update
   const handleSubmit = (values, formikActions) => {
@@ -54,7 +45,7 @@ const TranslationForm: React.FC<Props> = ({ backContent, frontContent, mode, onC
           backContent: Yup.string()
             .required('Required'),
         })}
-        onSubmit={(values, formikActions) => handleSubmit(values, formikActions)} onReset={onCancel}>
+        onSubmit={(values, formikActions) => handleSubmit(values, formikActions)}>
         {props => (
           <DismissKeyboard style={styles.container}>
             <TextInput
@@ -101,7 +92,7 @@ const TranslationForm: React.FC<Props> = ({ backContent, frontContent, mode, onC
               </Button>
 
               <Button
-                onPress={props.handleReset}
+                onPress={onCancel}
                 color="black"
                 mode="outlined"
                 disabled={props.isSubmitting}

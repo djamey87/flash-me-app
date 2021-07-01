@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import { FormMode } from '../../components/Forms/enums';
 
-import TranslationFormMode from '../../components/Forms/TranslationFormMode';
+import TranslationForm from '../../components/Forms/TranslationForm';
 import ListedNote from '../../components/Note/ListedNote';
 import { Text, View } from '../../components/Themed';
 import NotesContainer, { Note } from '../../stores/NotesContainer';
@@ -15,33 +15,36 @@ import styles from './styles';
 export default function TabOneScreen() {
   const notesContainer = NotesContainer.useContainer();
   const notes = notesContainer.notes;
-  const [editNoteId, setEditNoteId] = useState<string>();
+  const [selectedNote, setSelectedNote] = useState<Note>();
 
-  const handleEditPress = (noteId: string) => {
-    setEditNoteId(noteId);
+  const handleEditPress = (note: Note) => {
+    setSelectedNote(note);
   }
 
   const handleFormSubmit = (values: any) => {
-    console.log('handleFormSubmit', values);
-    if (!editNoteId) {
+    if (!selectedNote) {
       notesContainer.addNote(values);
     } else {
-      // TODO: update!
-      notesContainer.updateNote(editNoteId, values);
+      notesContainer.updateNote(selectedNote.id, values);
+      setSelectedNote(undefined);
     }
   }
 
   const handleFormCancel = () => {
-    console.log('handleFormCancel', editNoteId);
-    if (editNoteId) {
-      setEditNoteId(undefined);
+    if (selectedNote) {
+      setSelectedNote(undefined);
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.listView}>
-        <TranslationFormMode mode={editNoteId ? FormMode.Edit : FormMode.New} noteId={editNoteId} onSubmit={handleFormSubmit} onCancel={handleFormCancel} />
+        <TranslationForm
+          mode={selectedNote ? FormMode.Edit : FormMode.New}
+          backContent={selectedNote ? selectedNote.backContent : ''}
+          frontContent={selectedNote ? selectedNote.frontContent : ''}
+          onSubmit={handleFormSubmit}
+          onCancel={handleFormCancel} />
       </View>
 
       <View style={styles.notesListWrapper}>
@@ -50,7 +53,7 @@ export default function TabOneScreen() {
         </View>
         <ScrollView contentContainerStyle={{ padding: 10 }}>
           {notes.map((note: Note) => (
-            <ListedNote key={`note-${note.id}`} frontContent={note.frontContent} backContent={note.backContent} onEditPress={() => handleEditPress(note.id)} />
+            <ListedNote key={`note-${note.id}`} frontContent={note.frontContent} backContent={note.backContent} onEditPress={() => handleEditPress(note)} />
           ))}
           {notes.length > 0 ? <Button
             onPress={notesContainer.clearAll}
