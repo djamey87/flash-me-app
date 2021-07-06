@@ -7,7 +7,6 @@ import NotesContainer, { Note } from '../stores/NotesContainer';
 
 export default function TabTwoScreen() {
   const { notes } = NotesContainer.useContainer();
-  // const [cardRefs, setCardRefs] = useState<CardFlip[]>([]);
   // TODO: resolve typing
   const itemsRef = useRef<CardFlip[]>([]);
 
@@ -16,7 +15,6 @@ export default function TabTwoScreen() {
   }, [notes]);
 
   useEffect(() => {
-    console.log('test', itemsRef);
   }, [itemsRef])
 
   const flipDaCard = (idx: number) => {
