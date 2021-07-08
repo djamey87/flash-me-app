@@ -26,7 +26,7 @@
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#FFFFFF"
             },
-            "package": "com.[companyname].[appname]"
+            "package": "com.djamey.flashme"
         },
         "web": {
             "favicon": "./assets/images/favicon.png"
