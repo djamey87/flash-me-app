@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "language-learning",
-    "slug": "language-learning",
+    "name": "[app name]",
+    "slug": "[app-name]",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.[companyname].[appname]"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
