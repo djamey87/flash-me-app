@@ -2,9 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import GestureFlipView from 'react-native-gesture-flip-card';
 
-import { Text } from '../../components/Themed';
+import { Text } from '../../Themed';
 
-import styles from './styles';
+import styles from '../styles';
 
 interface Props {
     backContent: string;
@@ -12,7 +12,7 @@ interface Props {
     frontContent: string;
 }
 
-const FlippableCard: React.FC<Props> = ({cardId, backContent, frontContent}) => {
+const GestureFlippableCard: React.FC<Props> = ({cardId, backContent, frontContent}) => {
 
     const renderFront = () => {
         return (
@@ -32,7 +32,7 @@ const FlippableCard: React.FC<Props> = ({cardId, backContent, frontContent}) => 
 
     return (
     <View style={styles.cardContainer}>
-        <GestureFlipView width={100} height={100}>
+        <GestureFlipView width={100} height={100} >
             {renderBack()}
             {renderFront()}
         </GestureFlipView>
@@ -40,4 +40,4 @@ const FlippableCard: React.FC<Props> = ({cardId, backContent, frontContent}) => 
     );
 }
 
-export default FlippableCard;
+export default GestureFlippableCard;

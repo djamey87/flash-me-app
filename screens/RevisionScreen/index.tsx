@@ -1,9 +1,9 @@
 import React, { useEffect, useState, createRef, useRef } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import CardFlip from 'react-native-card-flip';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import GestureFlipView from 'react-native-gesture-flip-card';
 import FlippableCard from '../../components/Cards/FlippableCard';
+
+import GestureFlippableCard from '../../components/Cards/GestureFlippableCard';
 
 import NotesContainer, { Note } from '../../stores/NotesContainer';
 
@@ -11,15 +11,15 @@ export default function TabTwoScreen() {
   const { notes } = NotesContainer.useContainer();
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={{width:'100%', backgroundColor: 'grey'}}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
 
         {notes.map((note: Note, index: number) => {
-          // const onPressHandler = () => flipDaCard(index);
 
+
+          // return <FlippableCard key={'card-' + note.id} cardId={note.id} backContent={note.backContent} frontContent={note.frontContent} />
 
           return <FlippableCard key={'card-' + note.id} cardId={note.id} backContent={note.backContent} frontContent={note.frontContent} />
-
           // return (
           //   <CardFlip
           //     style={styles.cardContainer}
@@ -42,7 +42,7 @@ export default function TabTwoScreen() {
         })}
 
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -53,4 +53,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%'
   },
+  scrollContainer: {
+    width: '100%'
+  }
 });
