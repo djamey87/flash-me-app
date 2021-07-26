@@ -34,6 +34,7 @@ const card: ViewStyle = {
       width: 0,
       height: 1,
     },
+    elevation: 3,
     alignContent: 'center',
     justifyContent: 'center',
     shadowOpacity: 0.5,
