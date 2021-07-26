@@ -42,46 +42,42 @@ export default function TabOneScreen() {
 	};
 
 	return (
-		<>
-			<SafeAreaView style={styles.container}>
-				<View style={styles.listView}>
-					<TranslationForm
-						mode={selectedNote ? FormMode.Edit : FormMode.New}
-						backContent={selectedNote ? selectedNote.backContent : ''}
-						frontContent={
-							selectedNote ? selectedNote.frontContent : ''
-						}
-						onSubmit={handleFormSubmit}
-						onCancel={handleFormCancel}
-					/>
-				</View>
+		<SafeAreaView style={styles.container}>
+			<View style={styles.listView}>
+				<TranslationForm
+					mode={selectedNote ? FormMode.Edit : FormMode.New}
+					backContent={selectedNote ? selectedNote.backContent : ''}
+					frontContent={selectedNote ? selectedNote.frontContent : ''}
+					onSubmit={handleFormSubmit}
+					onCancel={handleFormCancel}
+				/>
+			</View>
 
-				<View style={styles.notesListWrapper}>
-					<View>
-						<Text style={styles.title}>Saved notes</Text>
-					</View>
-					<ScrollView contentContainerStyle={{ padding: 10 }}>
-						{notes.map((note: Note) => (
-							<ListedNote
-								key={`note-${note.id}`}
-								frontContent={note.frontContent}
-								backContent={note.backContent}
-								onEditPress={() => handleEditPress(note)}
-							/>
-						))}
-						{notes.length > 0 ? (
-							<Button
-								onPress={notesContainer.clearAll}
-								color="red"
-								mode="contained"
-								style={styles.clearButton}
-							>
-								Clear all
-							</Button>
-						) : null}
-					</ScrollView>
+			<View style={styles.notesListWrapper}>
+				<View>
+					<Text style={styles.title}>Saved notes</Text>
 				</View>
-			</SafeAreaView>
-		</>
+				<ScrollView contentContainerStyle={{ padding: 10 }}>
+					{notes.map((note: Note) => (
+						<ListedNote
+							key={`note-${note.id}`}
+							frontContent={note.frontContent}
+							backContent={note.backContent}
+							onEditPress={() => handleEditPress(note)}
+						/>
+					))}
+					{notes.length > 0 ? (
+						<Button
+							onPress={notesContainer.clearAll}
+							color="red"
+							mode="contained"
+							style={styles.clearButton}
+						>
+							Clear all
+						</Button>
+					) : null}
+				</ScrollView>
+			</View>
+		</SafeAreaView>
 	);
 }
