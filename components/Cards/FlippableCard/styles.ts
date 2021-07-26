@@ -2,6 +2,7 @@ import { TextStyle, ViewStyle } from "react-native";
 
 const CARD_WIDTH:number = 300;
 const CARD_HEIGHT:number = 250;
+const BORDER_RADIUS: number = 5;
 
 const cardFront: ViewStyle = {
     backgroundColor: '#91c7b1',
@@ -28,7 +29,7 @@ const cardContainer: ViewStyle = {
 const card: ViewStyle = {
     width: '100%',
     height: '100%',
-    borderRadius: 5,
+    borderRadius: BORDER_RADIUS,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 0,
@@ -62,6 +63,12 @@ const label: TextStyle = {
     backgroundColor: 'transparent',
 };
 
+const selectedCard: ViewStyle = {
+    borderColor: '#001011',
+    borderWidth: 5,
+    borderRadius: BORDER_RADIUS,
+}
+
 export default {
     cardBack,
     card,
@@ -70,5 +77,6 @@ export default {
     cardFront,
     editMenu,
     editMenuWrapper,
-    label
+    label,
+    selectedCard
 }

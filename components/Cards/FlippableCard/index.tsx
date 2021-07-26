@@ -75,8 +75,6 @@ const FlippableCard: React.FC<Props> = ({
 			) : null}
 			<TouchableOpacity
 				activeOpacity={1}
-				style={{}}
-				// disabled
 				onPress={onPressHandler}
 				onLongPress={onLongPressHandler}
 			>
@@ -85,10 +83,22 @@ const FlippableCard: React.FC<Props> = ({
 					key={'card-' + cardId}
 					ref={(el: CardFlip) => (cardRef.current = el)}
 				>
-					<View style={[styles.card, styles.cardFront]}>
+					<View
+						style={[
+							styles.card,
+							styles.cardFront,
+							displayMode === DisplayMode.Edit && styles.selectedCard,
+						]}
+					>
 						<Text style={styles.label}>{frontContent}</Text>
 					</View>
-					<View style={[styles.card, styles.cardBack]}>
+					<View
+						style={[
+							styles.card,
+							styles.cardBack,
+							displayMode === DisplayMode.Edit && styles.selectedCard,
+						]}
+					>
 						<Text style={[styles.label, { color: '#000' }]}>
 							{backContent}
 						</Text>
