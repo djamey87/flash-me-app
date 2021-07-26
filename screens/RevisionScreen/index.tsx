@@ -19,7 +19,8 @@ import NotesContainer, { Note } from '../../stores/NotesContainer';
 import styles from './styles';
 
 export default function TabTwoScreen() {
-	const { notes, deleteNoteById } = NotesContainer.useContainer();
+	const { notes, deleteNoteById, addNote, updateNote } =
+		NotesContainer.useContainer();
 	const [visibleFormType, setVisibleFormType] = useState<FormMode>();
 	const [selectedEditableNote, setSelectedEditableNote] =
 		useState<Note>();
@@ -28,6 +29,16 @@ export default function TabTwoScreen() {
 
 	const onAddClickHandler = (): void => {
 		setVisibleFormType(FormMode.New);
+	};
+
+	const onSubmitCardHandler = (values: any): void => {
+		addNote(values);
+		setVisibleFormType(undefined);
+	};
+
+	const onUpdateCardHandler = (values: any): void => {
+		updateNote(selectedEditableNote?.id!, values);
+		setVisibleFormType(undefined);
 	};
 
 	const onEditClickHandler = (selectedNote: Note): void => {
@@ -72,16 +83,16 @@ export default function TabTwoScreen() {
 							mode={FormMode.New}
 							backContent=""
 							frontContent=""
-							onCancel={() => {}}
-							onSubmit={() => {}}
+							onCancel={onCloseModalHandler}
+							onSubmit={onSubmitCardHandler}
 						/>
 					) : (
 						<TranslationForm
 							mode={FormMode.Edit}
 							backContent={selectedEditableNote?.backContent!}
 							frontContent={selectedEditableNote?.frontContent!}
-							onCancel={() => {}}
-							onSubmit={() => {}}
+							onCancel={onCloseModalHandler}
+							onSubmit={onUpdateCardHandler}
 						/>
 					)}
 				</ModalWrapper>
