@@ -5,13 +5,21 @@ import { IconButton } from 'react-native-paper';
 import styles from './styles';
 
 interface Props {
-    onAddClick: () => void
+	onAddClick: () => void;
 }
 
-const ActionsBar:React.FC<Props> = ({onAddClick}) => {
-    return <View style={styles.container}>
-          <IconButton icon="plus-box" size={50} color={'#001011'} onPress={onAddClick}/>
-    </View>
-}
+const ActionsBar: React.FC<Props> = ({ onAddClick }) => {
+	return (
+		<View style={styles.container}>
+			<IconButton
+				icon="plus-box"
+				size={50}
+				color={'#001011'}
+				onPress={onAddClick}
+				testID="add-btn"
+			/>
+		</View>
+	);
+};
 
 export default ActionsBar;
