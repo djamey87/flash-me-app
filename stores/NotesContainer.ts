@@ -42,12 +42,18 @@ const useNotes = () => {
         return notes.filter(note => note.id === noteId)[0];
     }
 
+    const deleteNoteById = (deleteId: string): void => {
+        const remainingNotes = notes.filter(note => note.id !== deleteId);
+        setNotes(remainingNotes);
+        updateStorage({ notes: remainingNotes as Note[] });
+    }
+
     const clearAll = () => {
         clearStore();
         setNotes([]);
     }
 
-    return { notes, addNote, clearAll, getNoteById, updateNote }
+    return { notes, addNote, clearAll, deleteNoteById, getNoteById, updateNote }
 }
 
 export default createContainer(useNotes)
