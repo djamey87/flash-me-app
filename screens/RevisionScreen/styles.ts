@@ -8,12 +8,26 @@ const container: ViewStyle = {
     width: '100%'
 };
 
+const bottomBar: ViewStyle = {
+    height: '10%',
+    width: '100%',
+    position: 'absolute',
+    bottom:0,
+    zIndex: 10,
+    // flex:1
+};
 
-const scrollContainer: ViewStyle = {
+const cardList: ViewStyle = {
     width: '100%'
+};
+const cardListWrapper: ViewStyle = {
+    width: '100%',
+    height: '90%'
 };
 
 export default {
+    bottomBar,
     container,
-    scrollContainer
+    cardList,
+    cardListWrapper
 }
