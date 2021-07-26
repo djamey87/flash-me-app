@@ -56,13 +56,13 @@ const FlippableCard: React.FC<Props> = ({
 							icon="cog"
 							size={50}
 							color={'#001011'}
-							onPress={() => {}}
+							onPress={onEditPress}
 						/>
 						<IconButton
 							icon="delete"
 							size={50}
 							color={'#001011'}
-							onPress={() => {}}
+							onPress={onDeletePress}
 						/>
 						<IconButton
 							icon="close"
