@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import ActionsBar from '../../components/ActionsBar';
 
 import FlippableCard from '../../components/Cards/FlippableCard';
 
@@ -20,5 +21,8 @@ export default function TabTwoScreen() {
 
       </ScrollView>
     </SafeAreaView>
+      <View style={styles.bottomBar}>
+          <ActionsBar onAddClick={onAddClickHandler}/>
+      </View>
   );
 }
