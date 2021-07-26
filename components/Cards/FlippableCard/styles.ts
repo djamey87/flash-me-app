@@ -40,6 +40,20 @@ const card: ViewStyle = {
     shadowOpacity: 0.5,
 };
 
+const editMenuWrapper: ViewStyle = {
+    position: 'absolute',
+    zIndex: 100,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+}
+
+const editMenu: ViewStyle = {
+    flexDirection: 'row',
+}
+
 const label: TextStyle = {
     textAlign: 'center',
     fontSize: 25,
@@ -54,5 +68,7 @@ export default {
     cardContainer,
     container,
     cardFront,
+    editMenu,
+    editMenuWrapper,
     label
 }
