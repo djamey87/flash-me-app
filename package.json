@@ -8,8 +8,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "increment-version": "standard-version",
-    "increment-version:test": "standard-version --dry-run"
+    "release": "standard-version",
+    "release:test": "standard-version --dry-run"
   },
   "jest": {
     "preset": "jest-expo",
