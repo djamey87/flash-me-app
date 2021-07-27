@@ -2,7 +2,7 @@
     "expo": {
         "name": "Flash me",
         "slug": "flash-me",
-        "version": "1.1.0",
+        "version": "1.0.1",
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",
         "scheme": "myapp",
