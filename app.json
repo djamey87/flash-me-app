@@ -19,14 +19,16 @@
             "**/*"
         ],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "buildNumber": "0.0.0"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#FFFFFF"
             },
-            "package": "com.djamey.flashme"
+            "package": "com.djamey.flashme",
+            "versionCode": 0
         },
         "web": {
             "favicon": "./assets/images/favicon.png"
