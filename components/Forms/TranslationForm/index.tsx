@@ -29,17 +29,8 @@ const TranslationForm: React.FC<Props> = ({
 
 	// TODO: type update
 	const handleSubmit = (values, formikActions) => {
-		setTimeout(() => {
-			onSubmit(values);
-			Keyboard.dismiss();
-
-			setTimeout(() => {
-				formikActions.setSubmitting(false);
-				formikActions.resetForm({
-					values: { frontContent: '', backContent: '' },
-				});
-			}, 20);
-		}, 500);
+		onSubmit(values);
+		Keyboard.dismiss();
 	};
 
 	return (
