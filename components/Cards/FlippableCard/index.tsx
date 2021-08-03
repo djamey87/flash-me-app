@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { SyntheticEvent, useRef, useState } from 'react';
+import { LayoutChangeEvent } from 'react-native';
 import CardFlip from 'react-native-card-flip';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
@@ -20,6 +21,9 @@ enum DisplayMode {
 	Edit,
 }
 
+const MIN_CARD_HEIGHT = 150;
+const CARD_CONTENT_PADDING = 25;
+
 const FlippableCard: React.FC<Props> = ({
 	backContent,
 	cardId,
@@ -30,6 +34,8 @@ const FlippableCard: React.FC<Props> = ({
 	const [displayMode, setDisplayMode] = useState<DisplayMode>(
 		DisplayMode.View,
 	);
+	const [cardHeight, setCardHeight] =
+		useState<number>(MIN_CARD_HEIGHT);
 
 	const cardRef = useRef<CardFlip>();
 
@@ -45,6 +51,16 @@ const FlippableCard: React.FC<Props> = ({
 
 	const onCancelEditMode = () => {
 		setDisplayMode(DisplayMode.View);
+	};
+
+	const checkCardHeight = (e: LayoutChangeEvent) => {
+		const currentElementHeight = e.nativeEvent.layout.height;
+		const maxCardHeight = Math.max(
+			MIN_CARD_HEIGHT,
+			cardHeight,
+			currentElementHeight + CARD_CONTENT_PADDING * 2,
+		);
+		setCardHeight(maxCardHeight);
 	};
 
 	return (
@@ -79,7 +95,7 @@ const FlippableCard: React.FC<Props> = ({
 				onLongPress={onLongPressHandler}
 			>
 				<CardFlip
-					style={styles.cardContainer}
+					style={[styles.cardContainer, { height: cardHeight }]}
 					key={'card-' + cardId}
 					ref={(el: CardFlip) => (cardRef.current = el)}
 				>
@@ -90,7 +106,9 @@ const FlippableCard: React.FC<Props> = ({
 							displayMode === DisplayMode.Edit && styles.selectedCard,
 						]}
 					>
-						<Text style={styles.label}>{frontContent}</Text>
+						<Text onLayout={checkCardHeight} style={styles.label}>
+							{frontContent}
+						</Text>
 					</View>
 					<View
 						style={[
@@ -99,7 +117,10 @@ const FlippableCard: React.FC<Props> = ({
 							displayMode === DisplayMode.Edit && styles.selectedCard,
 						]}
 					>
-						<Text style={[styles.label, { color: '#000' }]}>
+						<Text
+							onLayout={checkCardHeight}
+							style={[styles.label, { color: '#000' }]}
+						>
 							{backContent}
 						</Text>
 					</View>
