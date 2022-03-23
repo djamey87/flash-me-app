@@ -1,6 +1,7 @@
 # Flash-me (Flash me-mory)
 
 A flash card based learning app, focused on Android only for development and deployment.
+Using this a basis to explore android development and deployment strategies.
 
 ## deploying
 
