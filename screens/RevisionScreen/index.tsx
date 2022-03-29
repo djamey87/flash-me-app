@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Button } from 'react-native';
-import {
-	Dialog,
-	Button as PaperButton,
-	Paragraph,
-	Portal,
-} from 'react-native-paper';
+import { ScrollView } from 'react-native';
 import ActionsBar from '../../components/ActionsBar';
 
 import FlippableCard from '../../components/Cards/FlippableCard';
@@ -13,6 +7,7 @@ import ConfirmationDialog from '../../components/Dialogs/Confirmation';
 import { FormMode } from '../../components/Forms/enums';
 import TranslationForm from '../../components/Forms/TranslationForm';
 import ModalWrapper from '../../components/ModalWrapper';
+import { View } from '../../components/Themed';
 
 import NotesContainer, { Note } from '../../stores/NotesContainer';
 

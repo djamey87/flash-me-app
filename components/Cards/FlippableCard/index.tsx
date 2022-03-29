@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import CardFlip from 'react-native-card-flip';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { IconButton } from 'react-native-paper';
+// import { IconButton } from 'react-native-paper';
 
-import { Text, View } from '../../Themed';
+import { Text, View, IconButton } from '../../Themed';
 
 import styles from './styles';
 
@@ -52,24 +52,9 @@ const FlippableCard: React.FC<Props> = ({
 			{displayMode === DisplayMode.Edit ? (
 				<View style={styles.editMenuWrapper}>
 					<View style={styles.editMenu}>
-						<IconButton
-							icon="cog"
-							size={50}
-							color={'#001011'}
-							onPress={onEditPress}
-						/>
-						<IconButton
-							icon="delete"
-							size={50}
-							color={'#001011'}
-							onPress={onDeletePress}
-						/>
-						<IconButton
-							icon="close"
-							size={50}
-							color={'#001011'}
-							onPress={onCancelEditMode}
-						/>
+						<IconButton icon="cog" onPress={onEditPress} />
+						<IconButton icon="delete" onPress={onDeletePress} />
+						<IconButton icon="close" onPress={onCancelEditMode} />
 					</View>
 				</View>
 			) : null}
