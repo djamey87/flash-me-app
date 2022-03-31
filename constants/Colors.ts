@@ -5,7 +5,7 @@ const black = '#252323';
 
 export default {
 	light: {
-		text: '#000',
+		text: black,
 		background: '#fff',
 		tint: tintColorLight,
 		tabIconDefault: '#ccc',
