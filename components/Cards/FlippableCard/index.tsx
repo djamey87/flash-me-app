@@ -1,7 +1,5 @@
-import React, { useRef, useState } from 'react';
-import CardFlip from 'react-native-card-flip';
+import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-// import { IconButton } from 'react-native-paper';
 
 import { Text, View, IconButton } from '../../Themed';
 
@@ -30,12 +28,12 @@ const FlippableCard: React.FC<Props> = ({
 	const [displayMode, setDisplayMode] = useState<DisplayMode>(
 		DisplayMode.View,
 	);
-
-	const cardRef = useRef<CardFlip>();
+	const [cardFrontVisible, setCardFrontVisible] =
+		useState<boolean>(true);
 
 	const onPressHandler = (): void => {
 		if (displayMode === DisplayMode.View) {
-			cardRef.current?.flip();
+			setCardFrontVisible(!cardFrontVisible);
 		}
 	};
 
@@ -63,32 +61,24 @@ const FlippableCard: React.FC<Props> = ({
 				onPress={onPressHandler}
 				onLongPress={onLongPressHandler}
 			>
-				<CardFlip
-					style={styles.cardContainer}
-					key={'card-' + cardId}
-					ref={(el: CardFlip) => (cardRef.current = el)}
-				>
+				<View style={styles.cardContainer}>
 					<View
 						style={[
 							styles.card,
-							styles.cardFront,
+							cardFrontVisible ? styles.cardFront : styles.cardBack,
 							displayMode === DisplayMode.Edit && styles.selectedCard,
 						]}
 					>
-						<Text style={styles.label}>{frontContent}</Text>
-					</View>
-					<View
-						style={[
-							styles.card,
-							styles.cardBack,
-							displayMode === DisplayMode.Edit && styles.selectedCard,
-						]}
-					>
-						<Text style={[styles.label, { color: '#000' }]}>
-							{backContent}
+						<Text
+							style={[
+								styles.label,
+								!cardFrontVisible ? { color: '#000' } : null,
+							]}
+						>
+							{cardFrontVisible ? frontContent : backContent}
 						</Text>
 					</View>
-				</CardFlip>
+				</View>
 			</TouchableOpacity>
 		</View>
 	);

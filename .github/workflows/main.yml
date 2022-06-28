@@ -25,5 +25,5 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🚀 Publish app
-        run: expo publish --non-interactive
+      # - name: 🚀 Publish app
+      #   run: expo publish --non-interactive
