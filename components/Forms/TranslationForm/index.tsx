@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import { Text, View, TextInput, Keyboard } from 'react-native';
+import { Text, TextInput, Keyboard } from 'react-native';
 import { Button } from 'react-native-paper';
+import { View } from '../../../components/Themed';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
