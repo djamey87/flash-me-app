@@ -25,5 +25,28 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
+      - run: expo prebuild -p android
+
+      - name: Build Android Release
+        run: |
+          cd android && ./gradlew assembleRelease
+
+      - name: Sign app APK
+        uses: r0adkll/sign-android-release@v1
+        # ID used to access action output
+        id: signed_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      # Example use of `signedReleaseFile` output -- not needed
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Signed app bundle
+          path: ${{steps.signed_app.outputs.signedReleaseFile}}
+
       # - name: 🚀 Publish app
       #   run: expo publish --non-interactive
