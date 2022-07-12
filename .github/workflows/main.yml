@@ -27,9 +27,9 @@ jobs:
 
       - run: expo prebuild -p android
 
-      - name: Build Android Release
-        run: |
-          cd android && ./gradlew assembleRelease
+      # - name: Build Android Release
+      #   run: |
+      #     cd android && ./gradlew assembleRelease
 
       - name: Sign app APK
         uses: r0adkll/sign-android-release@v1
