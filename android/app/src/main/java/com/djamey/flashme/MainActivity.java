@@ -1,4 +1,4 @@
-package com.flashme;
+package com.djamey.flashme;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.flashme.newarchitecture.modules;
+package com.djamey.flashme.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
